@@ -1,0 +1,57 @@
+@startuml diagramabattleship
+
+class Punto {
+    + x: int
+    + y: int
+}
+
+class Barco {
+    + nombre: string
+    + largo: int
+    + enCuadricula[5]: Punto
+    + señaldegolpe[5]: bool
+}
+
+class Jugador {
+    - cuadricula[ANCHOTABLERO][ALTURATABLERO]: char
+
+    + iniciarCuadricula(): void
+    + colocarValorCuadricula(x: int, y: int): char
+    + colocarValorCuadricula(x: int, y: int, value: char): void
+}
+
+enum Direccion {
+    HORIZONTAL
+    VERTICAL
+}
+
+class ColocarBarcos {
+    + direccion: Direccion
+    + TipoDeBarco: Barco
+}
+
+class JuegoBattleship {
+    - buque[TIPOSDEBARCOS]: Barco
+    - jugadores[3]: Jugador
+    - Juegoiniciado: bool
+
+    + JuegoBattleship()
+    + cargandoBarcos(): void
+    + reiniciarTablero(jugador: Jugador): void
+    + dibujoDelTablero(jugador: Jugador): void
+    + colocacionDelBarcoPorelUsuario(posicionBarco: ColocarBarcos): void
+    + LugarValidoBarco(posicionBarco: ColocarBarcos): bool
+    + lugarDelBarcoEnElTablero(jugador: Jugador, posicionBarco: ColocarBarcos): void
+    + UserInputAttack(x: int, y: int, jugador: int): bool
+    + GameOverCheck(jugador: int): bool
+    + jugar(): void
+}
+
+Jugador -- Punto
+Barco -- Punto
+ColocarBarcos -- Direccion
+ColocarBarcos -- Barco
+JuegoBattleship -- Jugador
+JuegoBattleship -- ColocarBarcos
+
+@enduml
